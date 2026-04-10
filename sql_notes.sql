@@ -118,6 +118,37 @@ WHERE actor.first_name = 'Nick' AND actor.last_name = 'Wahlberg';
 
 
 
+-- USAGE OF EXISTS OPERATOR
+
+SELECT first_name, last_name FROM customer as c
+WHERE EXISTS(SELECT * FROM payment as p
+WHERE p.customer_id = c.customer_id and amount > 11);
 
 
+
+/* Self JOins 
+comprises of queries that join the table to itself, useful if we want 
+to compare values of a column of rows within the same table
+
+self join could be viewed as a join of two copies of the same table
+the table is not copied but the sql performs commands as if it were
+there is no special keyboard for a self join its simply a JOIN syntax with the same table in both parts
+
+
+
+SELECT A.col, B.col from TABLE as A JOIN TABLE as B
+ON A.some_col = B.other_col
+
+*/
+
+
+-- SELF JOIN ques : find all the pair of films that have the same length - film
+
+
+SELECT * FROM film LIMIT 10;
+
+SELECT A.title, B.title, A.length from film as A
+JOIN film as B ON
+A.film_id != B.film_id AND --why != its so that the filnm cant map with itself from Table B
+A.length = B.length;
 
